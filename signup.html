@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            color: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-title {
+            font-weight: bold;
+            color: #2575fc;
+        }
+
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+        .btn-primary:hover {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-8 col-lg-6 form-container">
+            <h2 class="text-center form-title">Create Your Account</h2>
+            <form id="createAccountForm" enctype="multipart/form-data" method="post" action="send_email.php">
+                <!-- Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <!-- Date of Birth -->
+                <div class="mb-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <!-- Country Code and Mobile -->
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <label for="countryCode" class="form-label">Country Code</label>
+                        <select id="countryCode" name="countryCode" class="form-select" required>
+                            <option value="+233">+233 (Ghana)</option>
+                            <option value="+1">+1 (USA)</option>
+                            <option value="+44">+44 (UK)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+                    </div>
+                </div>
+                <!-- Password -->
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+                    </div>
+                </div>
+                <span id="passwordError" class="error"></span>
+                <!-- Address -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea id="address" name="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+                </div>
+                <!-- Upload Ghana Card -->
+                <div class="mb-3">
+                    <label for="ghanaCard" class="form-label">Upload Ghana Card</label>
+                    <input type="file" class="form-control" id="ghanaCard" name="ghanaCard" accept="image/*" required>
+                </div>
+                <!-- Attach Two Pictures -->
+                <div class="mb-3">
+                    <label for="attachPictures" class="form-label">Attach Two Pictures</label>
+                    <input type="file" class="form-control" id="attachPictures" name="attachPictures[]" accept="image/*" multiple required>
+                </div>
+                <!-- Verification Photo -->
+                <div class="mb-3">
+                    <label for="verificationPhoto" class="form-label">Verification Photo</label>
+                    <input type="file" class="form-control" id="verificationPhoto" name="verificationPhoto" accept="image/*" capture="camera">
+                </div>
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary" onclick="validateForm(event)">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script>
+        function validateForm(event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const passwordError = document.getElementById("passwordError");
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                passwordError.textContent = "Passwords do not match!";
+            } else {
+                passwordError.textContent = "";
+            }
+        }
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
